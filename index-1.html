@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ทอยลูกเต๋า 5 สี</title>
+<style>
+body{margin:0;min-height:100vh;display:flex;justify-content:center;align-items:center;
+background:linear-gradient(135deg,#1e3c72,#2a5298);font-family:Arial,sans-serif}
+.card{background:#fff;width:350px;padding:30px;border-radius:20px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+#dice{width:140px;height:140px;margin:20px auto;border:4px solid #333;border-radius:20px;
+display:flex;justify-content:center;align-items:center;font-size:60px;font-weight:bold}
+.rolling{animation:spin .15s linear infinite}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+button{border:none;background:#2563eb;color:#fff;padding:14px 28px;border-radius:12px;font-size:18px;cursor:pointer}
+#result{margin-top:15px;font-size:20px}
+</style>
+</head>
+<body>
+<div class="card">
+<h2>🎲 ทอยลูกเต๋า 5 สี</h2>
+<p>สุ่มออกมาเพียง 1 ลูก 1 หน้า</p>
+<div id="dice"></div>
+<button onclick="rollDice()">ทอยลูกเต๋า</button>
+<div id="result"></div>
+</div>
+<script>
+const colors=[
+{name:"เขียว",color:"green"},
+{name:"ส้ม",color:"orange"},
+{name:"ขาว",color:"white"},
+{name:"เหลือง",color:"yellow"},
+{name:"น้ำเงิน",color:"dodgerblue"}
+];
+const faces=[1,1,2,2,3,3];
+const rnd=a=>a[Math.floor(Math.random()*a.length)];
+
+function rollDice(){
+ const dice=document.getElementById('dice');
+ dice.classList.add('rolling');
+ const anim=setInterval(()=>{
+   let c=rnd(colors), f=rnd(faces);
+   dice.style.background=c.color;
+   dice.textContent=f;
+ },80);
+
+ setTimeout(()=>{
+   clearInterval(anim);
+   dice.classList.remove('rolling');
+   let c=rnd(colors), f=rnd(faces);
+   dice.style.background=c.color;
+   dice.textContent=f;
+   document.getElementById('result').innerHTML=`สี: <b>${c.name}</b><br>เลขที่ออก: <b>${f}</b>`;
+ },1500);
+}
+rollDice();
+</script>
+</body>
+</html>
